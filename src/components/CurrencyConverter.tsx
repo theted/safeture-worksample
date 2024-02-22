@@ -41,7 +41,7 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
         type="text"
         name="value"
         value={value}
-        onInput={(e: FormEvent<HTMLInputElement>) => {
+        onChange={(e: FormEvent<HTMLInputElement>) => {
           setValue(Number(e.currentTarget.value));
         }}
       />
