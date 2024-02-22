@@ -1,4 +1,4 @@
-import { FC, FormEvent, ChangeEvent, useState, useEffect } from "react";
+import { FC, ChangeEvent, useState, useEffect } from "react";
 import { CurrencySelector } from "./CurrencySelector";
 import { convertCurrency, CurrencyMap } from "../api";
 import { currencies, currencySymbols } from "../constants";
@@ -14,16 +14,12 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
   const [value, setValue] = useState(0);
   const [result, setResult] = useState("");
 
-  const handleSwitchFrom = (event: SelectChangeEvent<HTMLSelectElement>) => {
+  const handleSwitchFrom = (event: SelectChangeEvent) => {
     setFromCurrency(event.target.value);
   };
 
-  const handleSwitchTo = (event: SelectChangeEvent<HTMLSelectElement>) => {
+  const handleSwitchTo = (event: SelectChangeEvent) => {
     setToCurrency(event.target.value);
-  };
-
-  const toFixedIfNecessary = (value: string, precision = 2) => {
-    return +parseFloat(value).toFixed(precision);
   };
 
   useEffect(() => {
@@ -33,7 +29,7 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
       value,
       rates
     );
-    setResult(toFixedIfNecessary(convertedAmount));
+    setResult(convertedAmount.toString());
   }, [fromCurrency, toCurrency, value, rates]);
 
   return (
@@ -42,7 +38,7 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
         type="text"
         name="value"
         value={value}
-        onChange={(e: SelectChangeEvent<HTMLInputElement>) => {
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
           setValue(Number(e.currentTarget.value));
         }}
       />

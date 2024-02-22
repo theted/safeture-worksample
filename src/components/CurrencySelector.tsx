@@ -4,7 +4,7 @@ import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
 type CurrencySelectorProps = {
   name: string;
   value: string;
-  onChange: SelectChangeEvent<string>;
+  onChange: (event: SelectChangeEvent<string>) => void;
   currencies: string[];
 };
 
