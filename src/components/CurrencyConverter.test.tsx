@@ -17,10 +17,12 @@ describe("CurrencyConverter", () => {
   });
 
   it("converts currency when value, fromCurrency, or toCurrency changes", async () => {
-    const { getByText } = render(<CurrencyConverter rates={TEST_RATES} />);
+    const { getByText, getByTestId } = render(
+      <CurrencyConverter rates={TEST_RATES} />
+    );
 
-    const [fromCurrencySelect, toCurrencySelect] =
-      screen.getAllByRole("combobox");
+    const fromCurrencySelect = getByTestId("from");
+    const toCurrencySelect = getByTestId("to");
     const valueInput = screen.getByRole("textbox");
 
     fireEvent.change(fromCurrencySelect, { target: { value: "SEK" } });
