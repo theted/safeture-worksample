@@ -1,9 +1,10 @@
 import { FC } from "react";
+import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
 
 type CurrencySelectorProps = {
   name: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: SelectChangeEvent<string>;
   currencies: string[];
 };
 
@@ -13,11 +14,16 @@ export const CurrencySelector: FC<CurrencySelectorProps> = ({
   onChange,
   currencies,
 }) => (
-  <select name={name} value={value} onChange={onChange}>
+  <Select
+    name={name}
+    value={value}
+    onChange={onChange}
+    inputProps={{ "data-testid": name }}
+  >
     {currencies.map((currency) => (
-      <option key={currency} value={currency}>
+      <MenuItem key={currency} value={currency}>
         {currency}
-      </option>
+      </MenuItem>
     ))}
-  </select>
+  </Select>
 );
