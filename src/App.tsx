@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getRates, CurrencyMap } from "./api";
 import { CurrencyConverter } from "./components/CurrencyConverter";
+import { CurrencyRates } from "./components/CurrencyRates";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -29,6 +30,14 @@ const App = () => {
       <CssBaseline />
       <h1>Currency converter</h1>
       <CurrencyConverter rates={rates} />
+
+      <div className="currencyContainer">
+        {Object.keys(rates).map((currency) => {
+          return (
+            <CurrencyRates key={currency} currency={currency} rates={rates} />
+          );
+        })}
+      </div>
     </ThemeProvider>
   );
 };
