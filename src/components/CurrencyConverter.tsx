@@ -1,6 +1,7 @@
 import { FC, ChangeEvent, useState, useEffect } from "react";
 import { CurrencySelector } from "./CurrencySelector";
-import { convertCurrency, CurrencyMap } from "../api";
+import { convertCurrency } from "../api";
+import { CurrencyMap } from "../types";
 import { currencies, currencySymbols } from "../constants";
 import { TextField, SelectChangeEvent } from "@mui/material";
 
@@ -58,8 +59,10 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
       />
 
       <div id="result">
-        {value} {currencySymbols[fromCurrency]} = {result}{" "}
-        {currencySymbols[toCurrency]}
+        <h2>
+          {value} {currencySymbols[fromCurrency]} = {result}{" "}
+          {currencySymbols[toCurrency]}
+        </h2>
       </div>
     </div>
   );

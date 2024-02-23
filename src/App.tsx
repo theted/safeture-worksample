@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getRates, CurrencyMap } from "./api";
+import { getRates } from "./api";
+import { CurrencyMap } from "./types";
 import { CurrencyConverter } from "./components/CurrencyConverter";
 import { CurrencyRates } from "./components/CurrencyRates";
 import "./App.css";

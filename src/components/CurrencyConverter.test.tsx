@@ -1,15 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import { CurrencyConverter } from "./CurrencyConverter";
+import { TEST_RATES } from "../__test__/data";
 import "@testing-library/jest-dom";
-
-const TEST_RATES = {
-  SEK: 0.1,
-  USD: 1,
-  EUR: 0.88,
-  GBP: 10,
-  CNY: 5,
-};
 
 describe("CurrencyConverter", () => {
   it("renders without crashing", () => {
@@ -33,6 +26,6 @@ describe("CurrencyConverter", () => {
     expect(toCurrencySelect).toHaveValue("USD");
     expect(valueInput).toHaveValue("100");
 
-    await waitFor(() => getByText("100 kr = 1000 $"));
+    await waitFor(() => getByText("100 kr = 10 $"));
   });
 });
