@@ -13,7 +13,7 @@ type CurrencyConverterProps = {
 export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
   const [fromCurrency, setFromCurrency] = useState(currencies[0]);
   const [toCurrency, setToCurrency] = useState(currencies[1]);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(100);
   const [result, setResult] = useState("");
 
   const handleSwitchFrom = (event: SelectChangeEvent) => {
