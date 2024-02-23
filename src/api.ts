@@ -8,34 +8,51 @@ export const apiCall = async (endpoint: string) => {
   );
 };
 
-// TODO: refactor
-export const getRates = async (): Promise<CurrencyMap> => {
+const getRatesFromLocalStorage = (): {
+  rates: CurrencyMap;
+  hoursDifference: number;
+} | null => {
   const localRates = localStorage.getItem("currencyRates");
 
   if (localRates) {
     const { timestamp, rates } = JSON.parse(localRates);
     const hoursDifference = getHoursDifference(timestamp);
 
-    if (hoursDifference < 1) {
-      return rates;
-    }
+    return { rates, hoursDifference };
   }
 
+  return null;
+};
+
+const getRatesFromApi = async (): Promise<CurrencyMap> => {
   const { rates } = await apiCall("latest");
 
-  const currencyRates = currencies.reduce((acc, currency) => {
+  return currencies.reduce((acc, currency) => {
     return { ...acc, [currency]: rates[currency] };
   }, {});
+};
 
+const storeRatesInLocalStorage = (rates: CurrencyMap): void => {
   localStorage.setItem(
     "currencyRates",
     JSON.stringify({
       timestamp: new Date(),
-      rates: currencyRates,
+      rates,
     })
   );
+};
 
-  return currencyRates;
+export const getRates = async (): Promise<CurrencyMap> => {
+  const localRates = getRatesFromLocalStorage();
+
+  if (localRates && localRates.hoursDifference < 1) {
+    return localRates.rates;
+  }
+
+  const apiRates = await getRatesFromApi();
+  storeRatesInLocalStorage(apiRates);
+
+  return apiRates;
 };
 
 export const convertCurrency = (
