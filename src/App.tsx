@@ -3,6 +3,7 @@ import { getRates } from "./api";
 import { CurrencyMap } from "./types";
 import { CurrencyConverter } from "./components/CurrencyConverter";
 import { CurrencyRates } from "./components/CurrencyRates";
+import { Spinner } from "./components/Spinner";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,26 +20,42 @@ const darkTheme = createTheme({
 
 const App = () => {
   const [rates, setRates] = useState<CurrencyMap>({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getRates().then((rates): void => {
       setRates(rates);
+      setLoading(false);
     });
   }, []);
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <h1>Currency converter</h1>
-      <CurrencyConverter rates={rates} />
 
-      <div className="currencyContainer">
-        {Object.keys(rates).map((currency) => {
-          return (
-            <CurrencyRates key={currency} currency={currency} rates={rates} />
-          );
-        })}
-      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="fade-in">
+          <h1>Currency converter</h1>
+          <CurrencyConverter rates={rates} />
+
+          <hr />
+
+          <h2>Exchange rates</h2>
+          <div className="currencyContainer">
+            {Object.keys(rates).map((currency) => {
+              return (
+                <CurrencyRates
+                  key={currency}
+                  currency={currency}
+                  rates={rates}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
     </ThemeProvider>
   );
 };
