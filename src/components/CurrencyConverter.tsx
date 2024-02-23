@@ -3,7 +3,8 @@ import { CurrencySelector } from "./CurrencySelector";
 import { convertCurrency } from "../api";
 import { CurrencyMap } from "../types";
 import { currencies, currencySymbols } from "../constants";
-import { TextField, SelectChangeEvent } from "@mui/material";
+import { TextField, SelectChangeEvent, Button } from "@mui/material";
+import SyncAlt from "@mui/icons-material/SyncAlt";
 
 type CurrencyConverterProps = {
   rates: CurrencyMap;
@@ -21,6 +22,12 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
 
   const handleSwitchTo = (event: SelectChangeEvent) => {
     setToCurrency(event.target.value);
+  };
+
+  const switchCurrencies = () => {
+    const temp = fromCurrency;
+    setFromCurrency(toCurrency);
+    setToCurrency(temp);
   };
 
   useEffect(() => {
@@ -43,21 +50,21 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
           setValue(Number(e.currentTarget.value));
         }}
       />
-
       <CurrencySelector
         name="from"
         value={fromCurrency}
         onChange={handleSwitchFrom}
         currencies={currencies}
       />
-
+      <Button onClick={switchCurrencies}>
+        <SyncAlt />
+      </Button>
       <CurrencySelector
         name="to"
         value={toCurrency}
         onChange={handleSwitchTo}
         currencies={currencies}
       />
-
       <div id="result">
         <h2>
           {value} {currencySymbols[fromCurrency]} = {result}{" "}
