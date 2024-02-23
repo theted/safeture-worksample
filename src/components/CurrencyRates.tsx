@@ -10,7 +10,7 @@ type CurrencyRatesProps = {
 export const CurrencyRates: FC<CurrencyRatesProps> = ({ currency, rates }) => {
   return (
     <div className="currencyRates">
-      <h3>{currency} rates</h3>
+      <h3>{currency}</h3>
       <ul className="rates">
         {Object.entries(rates).map(([rate]) => {
           return (

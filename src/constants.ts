@@ -1,15 +1,10 @@
 export const API_BASE = "https://openexchangerates.org/api";
 export const API_KEY = import.meta.env.VITE_API_KEY;
 
-export const currencies = ["SEK", "USD", "EUR", "GBP", "CNY"];
+export const currencies = ["SEK", "EUR", "GBP", "CNY"];
 
-type CurrencySymbols = {
-  [key: string]: string;
-};
-
-export const currencySymbols: CurrencySymbols = {
+export const currencySymbols: Record<string, string> = {
   SEK: "kr",
-  USD: "$",
   EUR: "€",
   GBP: "£",
   CNY: "¥",

@@ -14,10 +14,9 @@ describe("CurrencyRates", () => {
 
     const currencyElements = document.querySelectorAll(".rates li");
 
-    expect(currencyElements[0].textContent).toBe("1 USD = 10 SEK");
-    expect(currencyElements[1].textContent).toBe("1 EUR = 11.11 SEK");
-    expect(currencyElements[2].textContent).toBe("1 GBP = 13.33 SEK");
-    expect(currencyElements[3].textContent).toBe("1 CNY = 2 SEK");
+    expect(currencyElements[0].textContent).toBe("1 EUR = 11.11 SEK");
+    expect(currencyElements[1].textContent).toBe("1 GBP = 13.33 SEK");
+    expect(currencyElements[2].textContent).toBe("1 CNY = 2 SEK");
   });
 
   it("does not show rates for target currency", () => {
