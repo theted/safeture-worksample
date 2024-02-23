@@ -12,9 +12,27 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background-attachment: fixed;
+  background-image: radial-gradient(
+    circle 815px at 23.4% -21.8%,
+    rgba(9, 29, 85, 1) 0.2%,
+    rgba(0, 0, 0, 1) 100.2%
+  );
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.currencyContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.rates {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
