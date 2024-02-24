@@ -16,7 +16,7 @@ describe("CurrencyConverter", () => {
 
     const fromCurrencySelect = getByTestId("from");
     const toCurrencySelect = getByTestId("to");
-    const valueInput = screen.getByRole("textbox");
+    const valueInput = screen.getByRole("spinbutton");
 
     fireEvent.change(fromCurrencySelect, { target: { value: "SEK" } });
     fireEvent.change(toCurrencySelect, { target: { value: "EUR" } });
@@ -24,7 +24,7 @@ describe("CurrencyConverter", () => {
 
     expect(fromCurrencySelect).toHaveValue("SEK");
     expect(toCurrencySelect).toHaveValue("EUR");
-    expect(valueInput).toHaveValue("100");
+    expect(valueInput).toHaveValue(100);
 
     await waitFor(() => getByText("100 kr = 9 €"));
 
@@ -34,7 +34,7 @@ describe("CurrencyConverter", () => {
 
     expect(fromCurrencySelect).toHaveValue("EUR");
     expect(toCurrencySelect).toHaveValue("GBP");
-    expect(valueInput).toHaveValue("10");
+    expect(valueInput).toHaveValue(10);
 
     await waitFor(() => getByText("10 € = 8.33 £"));
   });
