@@ -43,7 +43,7 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
   return (
     <div>
       <TextField
-        type="text"
+        type="number"
         name="value"
         value={value}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
