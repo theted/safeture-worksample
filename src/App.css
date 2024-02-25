@@ -68,3 +68,16 @@ hr {
 .fade-in {
   animation: fade-in 600ms;
 }
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+.rotate {
+  animation: rotate 200ms ease-out;
+}

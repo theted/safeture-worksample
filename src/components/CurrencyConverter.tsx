@@ -15,6 +15,7 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
   const [toCurrency, setToCurrency] = useState(currencies[1]);
   const [value, setValue] = useState(100);
   const [result, setResult] = useState("");
+  const [rotate, setRotate] = useState(false);
 
   const handleSwitchFrom = (event: SelectChangeEvent) => {
     setFromCurrency(event.target.value);
@@ -28,6 +29,7 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
     const temp = fromCurrency;
     setFromCurrency(toCurrency);
     setToCurrency(temp);
+    setRotate(true);
   };
 
   useEffect(() => {
@@ -39,6 +41,17 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
     );
     setResult(convertedAmount.toString());
   }, [fromCurrency, toCurrency, value, rates]);
+
+  useEffect(() => {
+    let timer: number;
+
+    if (rotate) {
+      timer = setTimeout(() => {
+        setRotate(false);
+      }, 200);
+    }
+    return () => clearTimeout(timer);
+  }, [rotate]);
 
   return (
     <div>
@@ -56,7 +69,7 @@ export const CurrencyConverter: FC<CurrencyConverterProps> = ({ rates }) => {
         onChange={handleSwitchFrom}
         currencies={currencies}
       />
-      <Button onClick={switchCurrencies}>
+      <Button onClick={switchCurrencies} className={rotate ? "rotate" : ""}>
         <SyncAlt />
       </Button>
       <CurrencySelector
