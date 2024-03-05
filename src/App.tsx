@@ -21,21 +21,28 @@ const darkTheme = createTheme({
 const App = () => {
   const [rates, setRates] = useState<CurrencyMap>({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    getRates().then((rates): void => {
-      setRates(rates);
-      setLoading(false);
-    });
+    getRates()
+      .then((rates): void => {
+        setRates(rates);
+      })
+      .catch(() => {
+        setError(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
 
-      {loading ? (
-        <Spinner />
-      ) : (
+      {loading && !error && <Spinner />}
+
+      {!loading && !error && (
         <div className="fade-in">
           <h1>Currency converter</h1>
           <CurrencyConverter rates={rates} />
@@ -56,6 +63,8 @@ const App = () => {
           </div>
         </div>
       )}
+
+      {error && <p>Error fetching exchange rates...</p>}
     </ThemeProvider>
   );
 };
