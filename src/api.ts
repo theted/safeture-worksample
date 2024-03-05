@@ -14,14 +14,12 @@ const getRatesFromLocalStorage = (): {
 } | null => {
   const localRates = localStorage.getItem("currencyRates");
 
-  if (localRates) {
-    const { timestamp, rates } = JSON.parse(localRates);
-    const hoursDifference = getHoursDifference(timestamp);
+  if (!localRates) return null;
 
-    return { rates, hoursDifference };
-  }
+  const { timestamp, rates } = JSON.parse(localRates);
+  const hoursDifference = getHoursDifference(timestamp);
 
-  return null;
+  return { rates, hoursDifference };
 };
 
 const getRatesFromApi = async (): Promise<CurrencyMap> => {
